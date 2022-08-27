@@ -1,0 +1,16 @@
+
+
+.Task-list{
+
+    padding:10px;
+    display:grid;
+
+    gap:10px;
+}
+
+
+
+
+h3{
+    color:#6B7280 !important;
+}

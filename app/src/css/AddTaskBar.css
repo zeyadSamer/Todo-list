@@ -1,0 +1,61 @@
+
+.heading{
+    
+    margin-bottom:40px;
+    padding:10px;
+
+}
+
+.app-heading{
+    color:#6B7280 !important;
+    word-spacing:3px;
+    font-weight: 300;
+    
+ 
+}
+
+
+
+
+#task-input{
+    width:80%;
+    height:50px;
+    border-radius:20px;
+    background-color:#1f2937;
+    border:2px solid #1f2937;
+    color:#eee;
+    padding:20px;
+
+}
+
+#task-input:focus{
+
+    outline:2px solid #1f2937;
+    caret-color:#EEE;
+
+}
+
+#task-submit{
+    width:100px;
+    background-color:#374151 ;
+    color:#ec4899;
+    background-image:linear-gradient(to right,#ec4899,#8B5Cf6);
+    background-clip: text;
+    -webkit-text-fill-color:transparent;
+    font-weight:700;
+    border:none;
+    display:inline-flex;
+    align-items:center;
+
+
+}
+
+#task-submit:hover{
+  transform:scale(1.1);
+    
+}
+
+#task-submit:focus{
+    outline:none;
+}
+

@@ -1,0 +1,135 @@
+.task{
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+    flex-wrap:wrap;
+
+
+}
+
+
+input{
+    width:80%;
+    height:50px;
+    border-radius:30px;
+    background-color:#111827;
+    border:2px solid #111827;
+
+    color:#eee;
+    padding:10px;
+
+}
+
+
+
+.container{
+    width:80%;
+    background-color:#111827;
+
+   border-radius:30px;
+   display:flex;
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+   align-items: center;
+
+
+}
+.buttons{
+
+
+ 
+    display:flex;
+    justify-content: space-evenly;
+}
+.buttons button{
+
+    width:calc((100% - 5px)/3)
+}
+
+.edit{
+  
+
+    color:#ec4899;
+    background-image:linear-gradient(to right,#ec4899,#8B5Cf6);
+    background-clip: text;
+    -webkit-text-fill-color:transparent;
+    font-weight:700;
+    border:none;
+    border-radius:20px;
+
+}
+
+
+
+.delete , .finish{
+
+    color:crimson;
+    border:none;
+    
+    border-radius:20px;
+    background-color:#111827 ;
+    background-clip: text;
+
+    font-weight:700;
+    width:fit-content;
+
+}
+
+input:focus{
+    outline:none;
+
+}
+
+input:read-only{
+    cursor:not-allowed;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+
+
+
+@media (min-width:316px) and (max-width:1195px){
+    
+    
+    
+    .task{
+
+        margin-top: 10px;;
+        border:none;
+       
+    }
+    
+
+    .container{
+  
+        width: 100%;
+  
+        background-color: #374151;
+        border:none !important
+        
+
+    }
+    .container .buttons{
+        display:flex;
+        justify-content: center;
+        width:100%;
+        
+    }
+    .container .buttons button{
+
+
+        width:calc(85%/3)
+
+    }
+
+    .container input{
+        width:100%
+    }
+
+
+
+
+}

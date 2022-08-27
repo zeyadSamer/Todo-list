@@ -1,0 +1,17 @@
+*{
+  box-sizing:border-box;
+  font-family:'Fira sans',sans-serif;
+
+}
+
+.app{
+  min-width:100%;
+  min-height:100%;
+  margin:auto;
+
+
+  padding:30px;
+  
+
+}
+
