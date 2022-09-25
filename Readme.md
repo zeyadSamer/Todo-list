@@ -11,6 +11,8 @@ The user can add todos by the upper input task bar , delete tasks, save tasks, e
 
 ## Installation and app running
 
+
+
 ### Installing the backend
 
 - First change directory to api: 
@@ -39,8 +41,15 @@ add required configurations as:
 npm run watch
 ```
 
+- build sql tables using :
+```sh
+db-migrate up
+```
+- in case you want to drop the tables run:
 
-
+```sh
+db-migrate down
+```
 ### Installing frontend
 
 - first change directory to app: 

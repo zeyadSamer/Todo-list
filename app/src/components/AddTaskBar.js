@@ -1,16 +1,19 @@
 import '../css/AddTaskBar.css'
 import {useState} from 'react'
-import addTodo from '../dispatchers/addTodo'
+import addTodo from '../dispatchers/addTodo';
+import {v4} from 'uuid';
 
-const AddTaskBar = ({store})=>{
+
+const AddTaskBar = ({store,userData})=>{
 
     const [inputText,setInputText]=useState('');
    
 
 
     const generateId=()=>{
+        console.log(v4());
         
- return Math.floor(Date.now()/10000000) 
+ return v4();
     }
 
 
@@ -31,7 +34,7 @@ const AddTaskBar = ({store})=>{
     const handleOnSubmit=(event)=>{
 
         store.subscribe(()=>console.log('state:',store.getState()))
-        addTodo(store,{id:generateId(),name:inputText,completed:false});
+        addTodo(store,{id:generateId(),name:inputText,completed:false},userData);
         event.preventDefault();
         setInputText('');
     };

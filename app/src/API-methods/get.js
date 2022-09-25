@@ -2,15 +2,22 @@
 
 import fetch from "node-fetch";
 
-const url='http://localhost:3000/todos'
 
-const getAllTodos=async(url)=>{
+const getAllTodos=async(url,token)=>{
 
   console.log('fetching start')
     
     try{
         
-        const response=await fetch(url);
+        const response=await fetch(url,
+            {
+        headers:{
+            'Authorization': 'Bearer ' + token,
+        
+        } 
+
+        }
+        );
         
         const allTodos=await response.json();
       

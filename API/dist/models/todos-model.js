@@ -43,7 +43,7 @@ var db_connection_1 = __importDefault(require("../db-connection"));
 var Todos = /** @class */ (function () {
     function Todos() {
     }
-    Todos.prototype.read = function () {
+    Todos.prototype.read = function (userId) {
         return __awaiter(this, void 0, void 0, function () {
             var connection, sqlQuery, result, err_1;
             return __generator(this, function (_a) {
@@ -53,8 +53,8 @@ var Todos = /** @class */ (function () {
                         return [4 /*yield*/, db_connection_1["default"].connect()];
                     case 1:
                         connection = _a.sent();
-                        sqlQuery = 'SELECT * FROM todos ';
-                        return [4 /*yield*/, connection.query(sqlQuery)];
+                        sqlQuery = 'SELECT * FROM todos where user_id=$1 ';
+                        return [4 /*yield*/, connection.query(sqlQuery, [userId])];
                     case 2:
                         result = _a.sent();
                         connection.release();
@@ -91,7 +91,7 @@ var Todos = /** @class */ (function () {
             });
         });
     };
-    Todos.prototype.add = function (todo) {
+    Todos.prototype.add = function (todo, userId) {
         return __awaiter(this, void 0, void 0, function () {
             var connection, sqlQuery, id, name_1, completed, result, err_3;
             return __generator(this, function (_a) {
@@ -101,9 +101,9 @@ var Todos = /** @class */ (function () {
                         return [4 /*yield*/, db_connection_1["default"].connect()];
                     case 1:
                         connection = _a.sent();
-                        sqlQuery = "insert into todos(id,name,completed) values($1,$2,$3) returning * ";
+                        sqlQuery = "insert into todos(id,name,completed,user_id) values($1,$2,$3,$4) returning * ";
                         id = todo.id, name_1 = todo.name, completed = todo.completed;
-                        return [4 /*yield*/, connection.query(sqlQuery, [id, name_1, completed])];
+                        return [4 /*yield*/, connection.query(sqlQuery, [id, name_1, completed, userId])];
                     case 2:
                         result = _a.sent();
                         connection.release();
@@ -118,7 +118,7 @@ var Todos = /** @class */ (function () {
         });
     };
     //update
-    Todos.prototype.update = function (id, todo) {
+    Todos.prototype.update = function (id, todo, userId) {
         return __awaiter(this, void 0, void 0, function () {
             var connection, sqlQuery, _a, name_2, _b, completed, result, err_4;
             return __generator(this, function (_c) {
@@ -128,9 +128,9 @@ var Todos = /** @class */ (function () {
                         return [4 /*yield*/, db_connection_1["default"].connect()];
                     case 1:
                         connection = _c.sent();
-                        sqlQuery = "UPDATE todos SET  name=$1, completed=$2  WHERE id=$3 returning *";
+                        sqlQuery = "UPDATE todos SET  name=$1, completed=$2  WHERE id=$3 AND user_id=$4 returning *";
                         _a = todo.name, name_2 = _a === void 0 ? todo.name : _a, _b = todo.completed, completed = _b === void 0 ? todo.completed : _b;
-                        return [4 /*yield*/, connection.query(sqlQuery, [name_2, completed, id])];
+                        return [4 /*yield*/, connection.query(sqlQuery, [name_2, completed, id, userId])];
                     case 2:
                         result = _c.sent();
                         connection.release();
@@ -144,7 +144,7 @@ var Todos = /** @class */ (function () {
         });
     };
     //delete
-    Todos.prototype["delete"] = function (id) {
+    Todos.prototype["delete"] = function (id, userId) {
         return __awaiter(this, void 0, void 0, function () {
             var connection, sqlQuery, result, err_5;
             return __generator(this, function (_a) {
@@ -154,8 +154,8 @@ var Todos = /** @class */ (function () {
                         return [4 /*yield*/, db_connection_1["default"].connect()];
                     case 1:
                         connection = _a.sent();
-                        sqlQuery = "DELETE FROM todos WHERE id=$1 returning *";
-                        return [4 /*yield*/, connection.query(sqlQuery, [id])];
+                        sqlQuery = "DELETE FROM todos WHERE id=$1 AND user_id=$2  returning *";
+                        return [4 /*yield*/, connection.query(sqlQuery, [id, userId])];
                     case 2:
                         result = _a.sent();
                         connection.release();

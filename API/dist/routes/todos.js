@@ -44,15 +44,17 @@ var addTodo_1 = __importDefault(require("../handlers/addTodo"));
 var deleteTodo_1 = __importDefault(require("../handlers/deleteTodo"));
 var readTodos_1 = require("../handlers/readTodos");
 var updateTodo_1 = __importDefault(require("../handlers/updateTodo"));
+var authenticateJWT_1 = require("../middleware/authenticateJWT");
 var routes = express_1["default"].Router();
 //get all todos
-routes.get('/todos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var data, err_1;
+routes.get('/todos:userId', authenticateJWT_1.authenticateJWT, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var userId, data, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, (0, readTodos_1.getAllTodos)()];
+                userId = req.params.userId;
+                return [4 /*yield*/, (0, readTodos_1.getAllTodos)(userId)];
             case 1:
                 data = _a.sent();
                 res.json(data);
@@ -65,58 +67,57 @@ routes.get('/todos', function (req, res) { return __awaiter(void 0, void 0, void
     });
 }); });
 //get specific todo
-routes.get('/todos/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+routes.get('/todos/:id', authenticateJWT_1.authenticateJWT, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, data, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id = parseInt(req.params.id);
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
+                _a.trys.push([0, 2, , 3]);
+                id = req.params.id;
                 return [4 /*yield*/, (0, readTodos_1.getTodo)(id)];
-            case 2:
+            case 1:
                 data = _a.sent();
                 res.json(data);
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 err_2 = _a.sent();
                 throw new Error("Error getting todo:".concat(err_2));
-            case 4: return [2 /*return*/];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
-routes.post('/todos', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var dataSent, addedResult, err_3;
+//post todo
+routes.post('/todos:userId', authenticateJWT_1.authenticateJWT, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var userId, dataSent, addedResult, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 2, , 3]);
+                userId = req.params.userId;
                 dataSent = req.body;
-                _a.label = 1;
+                return [4 /*yield*/, (0, addTodo_1["default"])(dataSent, userId)];
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, addTodo_1["default"])(dataSent)];
-            case 2:
                 addedResult = _a.sent();
                 res.json(addedResult);
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 3];
+            case 2:
                 err_3 = _a.sent();
                 throw err_3;
-            case 4: return [2 /*return*/];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
-routes["delete"]('/todos/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, deletedTodo, err_4;
+routes["delete"]('/todos/:id/:userId', authenticateJWT_1.authenticateJWT, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var userId, id, deletedTodo, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id = parseInt(req.params.id);
+                userId = req.params.userId;
+                id = req.params.id;
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, deleteTodo_1["default"])(id)];
+                return [4 /*yield*/, (0, deleteTodo_1["default"])(id, userId)];
             case 2:
                 deletedTodo = _a.sent();
                 res.json(deletedTodo);
@@ -128,17 +129,18 @@ routes["delete"]('/todos/:id', function (req, res) { return __awaiter(void 0, vo
         }
     });
 }); });
-routes.patch('/todos/:id', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var id, dataChanges, updatedTodo, err_5;
+routes.patch('/todos/:id/:userId', authenticateJWT_1.authenticateJWT, function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var userId, id, dataChanges, updatedTodo, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                id = parseInt(req.params.id);
+                userId = req.params.userId;
+                id = req.params.id;
                 dataChanges = req.body;
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, (0, updateTodo_1["default"])(id, dataChanges)];
+                return [4 /*yield*/, (0, updateTodo_1["default"])(id, dataChanges, userId)];
             case 2:
                 updatedTodo = _a.sent();
                 res.json(updatedTodo);

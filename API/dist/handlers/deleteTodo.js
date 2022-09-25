@@ -40,14 +40,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var todos_model_1 = __importDefault(require("../models/todos-model"));
-var deleteTodo = function (id) { return __awaiter(void 0, void 0, void 0, function () {
+var deleteTodo = function (id, userId) { return __awaiter(void 0, void 0, void 0, function () {
     var todos, deletedTodo, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 todos = new todos_model_1["default"]();
-                return [4 /*yield*/, todos["delete"](id)];
+                return [4 /*yield*/, todos["delete"](id, userId)];
             case 1:
                 deletedTodo = _a.sent();
                 return [2 /*return*/, deletedTodo];

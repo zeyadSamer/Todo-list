@@ -4,7 +4,7 @@ import fetch from "node-fetch";
 import patchTodo from "./patch";
 
 
-const postTodo=async(url,todoData)=>{
+const postTodo=async(url,todoData,token)=>{
 
 
 
@@ -14,9 +14,10 @@ const postTodo=async(url,todoData)=>{
      method:'POST',
      headers:{
 
-        
-        'Content-Type':'application/json'
-            },
+        'Content-Type':'application/json',
+        'Authorization': 'Bearer ' + token,
+
+        },
     
         body:JSON.stringify(todoData)
 

@@ -1,0 +1,10 @@
+CREATE TABLE todos (
+
+id VARCHAR(200) NOT NULL UNIQUE ,
+name VARCHAR(200) NOT NULL,
+completed BOOLEAN NOT NULL,
+user_id BIGSERIAL NOT NULL REFERENCES users(id)
+ 
+
+
+);

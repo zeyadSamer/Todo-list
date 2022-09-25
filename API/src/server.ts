@@ -2,20 +2,23 @@ import express from "express";
 import routes from "./routes/todos"
 import bodyParser from "body-parser";
 import cors from 'cors';
+import usersRoutes from "./routes/users";
 
 const app=express();
 
 app.use(cors({
 
-    origin:" http://localhost:3001"
-
-
+    origin:"*",
+    methods:['GET','POST','DELETE','PATCH']
+ 
 
 }))
 // parse application/json
 app.use(bodyParser.json())
 
 app.use(routes);
+app.use(usersRoutes);
+
 
 
 

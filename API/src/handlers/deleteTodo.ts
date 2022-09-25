@@ -1,16 +1,16 @@
 import Todos from '../models/todos-model';
 
 
-const deleteTodo=async(id:number)=>{
+const deleteTodo=async(id:string,userId:number)=>{
 
    try{
     const todos=new Todos();
-    const deletedTodo=await todos.delete(id);
+    const deletedTodo=await todos.delete(id,userId);
 
     return deletedTodo;
     
    }catch(err){
-
+ 
     throw err;
     
    }

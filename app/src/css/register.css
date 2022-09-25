@@ -1,0 +1,102 @@
+
+
+
+
+
+.register{
+
+margin-top:5%;
+margin-left:20px;
+margin-right: 20px;
+height:80vh;
+display:grid;
+grid-template-columns: minMax(300px,600px);
+justify-content: center;
+
+
+}
+
+
+
+
+.register form{
+
+    border-radius:15px;
+      
+    border:3px solid #111827;
+    display:flex;
+    flex-direction:column;
+    justify-content: space-evenly;
+
+}
+
+.register header{
+    text-align:center;
+    font-size:30px;
+    color:#6B7280
+}
+.register label{
+    font-size: 20px;
+}
+
+
+
+
+.register .form-content{
+    color:#6B7280;
+    
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    
+ 
+    padding:40px;
+
+}
+
+
+.register input{
+    
+   
+    width:100%;
+   caret-color:#6B7280;
+   color:cadetblue;
+   font-size: 20px;
+
+}
+
+.register .sign-button{
+    color:#ec4899;
+    background-image:linear-gradient(to right,#ec4899,#8B5Cf6);
+    background-clip: text;
+    -webkit-text-fill-color:transparent;
+    border:2px solid;
+    border-radius: 36px;
+    font-weight:bold;
+    padding:12px;
+    font-size:20px;
+
+
+
+
+}
+
+.buttons .function-change{
+
+
+    border:none;
+    text-decoration:underline;
+    color:#6B7280;
+    background-color:var(--darker);
+
+
+
+
+
+}
+.buttons .function-change:hover{
+
+    transform:none;
+    word-spacing: 1;
+}

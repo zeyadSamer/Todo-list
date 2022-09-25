@@ -96,7 +96,9 @@ const Task=({task,deleteTask,editTask,toggleTask,initialStyle})=>{
             name:taskData,
             completed:task.completed
         }
+      
         
+        //error may be due to this line
         editTask(task,newTodo);
         
         setTaskData(newTodo);

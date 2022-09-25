@@ -1,9 +1,11 @@
 
 export type Todo={
 
-    id:number;
+    id:string;
     name:string;
     completed:boolean;
+   
+
 
 
 

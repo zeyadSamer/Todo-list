@@ -1,75 +1,51 @@
-import logo from './logo.svg';
-import AddTaskBar from './components/AddTaskBar';
-import './App.css';
-import TaskList from "./components/TaskList";
-import { useEffect, useState } from 'react';
-import receiveTodos from'./dispatchers/receiveTodos'
-
+import {useState,createContext } from 'react';
+import {BrowserRouter,Route,Link,Routes} from 'react-router-dom';
+import TodosPage from './components/TodosPage';
+import SignUpForm from './components/SignUpForm';
 
 
 
 function App({store}) {
 
-  
-const [loading,setLoading]=useState(true);
 
-  useEffect(()=>{
-
-
-    try{
-    receiveTodos(store,'http://localhost:3000/todos/');
-    
-    }catch(err){
-
-      console.log('catched err',err);
+  const [userData,setUserData]=useState({})
 
 
 
-    }
- 
-
-    
-  },[]);
+   const getUserData=(data)=>{
+     setUserData(window.localStorage.getItem(userData))
+  }
 
 
 
-  store.subscribe(()=>{
+   
+  return(
 
-    console.log('the new state:',store.getState());
-
-
-    const {loading}= store.getState(); 
-    setLoading(loading);
-    
-
-
-
-  })
-
-
-  
+    <BrowserRouter>
+    <Routes>
   
 
+      
+      <Route exact path={'/'}
+            element={<SignUpForm />} />
  
-
+   
+     
+       <Route exact path={'/register'}
+            element={<SignUpForm />} />
  
-
- 
-    return (
-      <div>
-      { loading===false && <div className='app'>
-        <AddTaskBar store={store}/>
-        <TaskList store={store}/>
-         </div>
-      }
-      { loading===true && <h1>Loading...</h1>
+    <Route exact path='/todos'
+      element={<TodosPage store={store}  userData={userData}/> } />
+  
+    
+  
+    </Routes>
+    </BrowserRouter>
+  )
 
 
+  
 
-      }
 
-     </div>
-  );
-
-    }
+  }
 export default App;

@@ -1,13 +1,13 @@
 import  Todos from '../models/todos-model'
 
 
-const getAllTodos=async()=>{
+const getAllTodos=async(userId:number)=>{
 
     try{ 
 
         const todos=new Todos();
 
-        const todosData=await todos.read();
+        const todosData=await todos.read(userId);
         return todosData;
 
 
@@ -19,7 +19,7 @@ const getAllTodos=async()=>{
 
     }
 
-
+ 
 
 }
 
@@ -27,7 +27,7 @@ const getAllTodos=async()=>{
 
 
 
-const getTodo=async(id:number)=>{
+const getTodo=async(id:string)=>{
 
     try{
 

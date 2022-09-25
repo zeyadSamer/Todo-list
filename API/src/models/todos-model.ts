@@ -1,21 +1,21 @@
 import client from "../db-connection";
 import {Todo} from '../types/todo'
 import updateForTodo from "../types/updatesForTodo";
-
+import { authenticateJWT } from "../middleware/authenticateJWT";
  
 
 class Todos{
 
-   public async read():Promise<Todo[]>{
+   public async read(userId:number):Promise<Todo[]>{
 
         try{
 
             const connection=await client.connect();
            
 
-            const sqlQuery='SELECT * FROM todos ';
+            const sqlQuery='SELECT * FROM todos where user_id=$1 ';
 
-            const result =await connection.query(sqlQuery);
+            const result =await connection.query(sqlQuery,[userId]);
 
 
 
@@ -40,7 +40,7 @@ class Todos{
 
 
 
-    public async show(id:number):Promise<Todo>{
+    public async show(id:string):Promise<Todo>{
 
         try{
 
@@ -52,7 +52,7 @@ class Todos{
 
             
 
-        return result.rows[0];
+        return result.rows[0]; 
 
         }catch(err)
         {
@@ -71,15 +71,15 @@ class Todos{
     }
 
 
-    public async add(todo:Todo):Promise<Todo>{
+    public async add(todo:Todo,userId:number):Promise<Todo>{
         try{
-            
-
+             
+ 
             const connection=await client.connect();
      
-            const sqlQuery=`insert into todos(id,name,completed) values($1,$2,$3) returning * `
+            const sqlQuery=`insert into todos(id,name,completed,user_id) values($1,$2,$3,$4) returning * `
             const {id,name,completed}=todo
-            const result=await connection.query(sqlQuery,[id,name,completed]);
+            const result=await connection.query(sqlQuery,[id,name,completed,userId]);
 
             connection.release();
 
@@ -89,7 +89,7 @@ class Todos{
 
 
         }catch(err){
-            throw err;
+            throw err; 
 
 
 
@@ -109,18 +109,18 @@ class Todos{
 
     //update
 
-    async update(id:number,todo:updateForTodo):Promise<Todo>{
+    async update(id:string,todo:updateForTodo,userId:number):Promise<Todo>{
   
 
         try{
 
             const connection=await client.connect();
 
-             const sqlQuery=`UPDATE todos SET  name=$1, completed=$2  WHERE id=$3 returning *`;
+             const sqlQuery=`UPDATE todos SET  name=$1, completed=$2  WHERE id=$3 AND user_id=$4 returning *`;
 
              const {name=todo.name,completed=todo.completed}=todo;
 
-             let result=await connection.query(sqlQuery,[name,completed,id]);
+             let result=await connection.query(sqlQuery,[name,completed,id,userId]);
 
               connection.release();
 
@@ -148,14 +148,13 @@ class Todos{
 
     //delete
 
-    async delete(id:number):Promise<Todo>{
+    async delete(id:string,userId:number):Promise<Todo>{
 
         try{
 
             const connection=await client.connect();
-
-            const sqlQuery=`DELETE FROM todos WHERE id=$1 returning *`;
-            const result=await connection.query(sqlQuery,[id]);
+            const sqlQuery=`DELETE FROM todos WHERE id=$1 AND user_id=$2  returning *`;
+            const result=await connection.query(sqlQuery,[id,userId]);
             connection.release();
             return result.rows[0];
 

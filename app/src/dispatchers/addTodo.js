@@ -3,7 +3,7 @@ import url from '../config.js';
 import postTodo from '../API-methods/post'
 import { deleteTodoAction } from "../actions/deleteTodo";
 
-const addTodo=(store,todo)=>{
+const addTodo=(store,todo,userData)=>{
 
 
 
@@ -14,7 +14,7 @@ const addTodo=(store,todo)=>{
  
       if(store.getState().todos.includes(todo))
         {
-            postTodo(url,todo);
+            postTodo(`${url}${userData.id}`,todo,userData.token);
 
         }
         else{

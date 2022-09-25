@@ -41,14 +41,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.getTodo = exports.getAllTodos = void 0;
 var todos_model_1 = __importDefault(require("../models/todos-model"));
-var getAllTodos = function () { return __awaiter(void 0, void 0, void 0, function () {
+var getAllTodos = function (userId) { return __awaiter(void 0, void 0, void 0, function () {
     var todos, todosData, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
                 todos = new todos_model_1["default"]();
-                return [4 /*yield*/, todos.read()];
+                return [4 /*yield*/, todos.read(userId)];
             case 1:
                 todosData = _a.sent();
                 return [2 /*return*/, todosData];

@@ -6,7 +6,7 @@ import '../css/TaskList.css'
 import deleteTodo from '../dispatchers/deleteTodo'
 import addTodo from '../dispatchers/addTodo'
 import toggleTodo from "../dispatchers/toggleTodo"
-const TaskList=({store})=>{
+const TaskList=({store,userData})=>{
 
     const [tasks,setTasks]=useState([]);
 
@@ -16,7 +16,7 @@ const TaskList=({store})=>{
 
         setTasks(store.getState().todos);
     });
-    } ,[]);
+    } ,[tasks]);
 
 
     console.log('tasks',tasks);
@@ -39,7 +39,7 @@ const TaskList=({store})=>{
 
     const deleteTask=(todo)=>{
 
-        deleteTodo(store,todo);
+        deleteTodo(store,todo,userData);
         
         
       
@@ -51,9 +51,9 @@ const TaskList=({store})=>{
     const editTask=(todo,newTodo)=>{
         
          
-        deleteTodo(store,todo);
+        deleteTodo(store,todo,userData);
 
-        addTodo(store,newTodo);
+        addTodo(store,newTodo,userData);
      
 
     }
@@ -61,7 +61,7 @@ const TaskList=({store})=>{
 
     const toggleTask=(oldtodo)=>{
 
-       toggleTodo(store,oldtodo);
+       toggleTodo(store,oldtodo,userData);
       
     }
 
@@ -77,7 +77,7 @@ const TaskList=({store})=>{
 
             return(
 
-                <Task key={task.id}  task={task} deleteTask={deleteTask} editTask={editTask} toggleTask={toggleTask} 
+                <Task key={tasks.indexOf(task)}  task={task} deleteTask={deleteTask} editTask={editTask} toggleTask={toggleTask} 
                 
                 
                 

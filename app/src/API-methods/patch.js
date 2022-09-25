@@ -1,14 +1,16 @@
 import fetch from "node-fetch";
 
 
-const patchTodo=async(url,data)=>{
+const patchTodo=async(url,data,userData)=>{
     try{
 
-    const response=await fetch(`${url}/${data.id}`,{
+    const response=await fetch(`${url}/${data.id}/${userData.id}`,{
 
         method:'PATCH',
         headers:{
          'Content-Type':'application/json',
+         'Authorization': 'Bearer ' + userData.token,
+
 
 
 

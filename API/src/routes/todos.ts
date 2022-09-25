@@ -7,23 +7,25 @@ import deleteTodo from "../handlers/deleteTodo";
 import { getTodo, getAllTodos } from "../handlers/readTodos";
 import updateTodo from "../handlers/updateTodo";
 
+import {authenticateJWT} from '../middleware/authenticateJWT';
 
 
 const routes=express.Router(); 
 
 
 //get all todos
-routes.get('/todos',async(req:Request,res:Response)=>{
+routes.get('/todos:userId',authenticateJWT,async(req:Request,res:Response)=>{
 
    try{
-   const data=await getAllTodos();
 
-   res.json(data);
+    const userId=(req.params.userId as unknown) as number;
+
+    const data=await getAllTodos(userId);
+
+    res.json(data);
    }catch(err){
 
       throw new Error(`Error getting todos:${err}`);
-
-
 
 
    }
@@ -33,14 +35,13 @@ routes.get('/todos',async(req:Request,res:Response)=>{
 
 //get specific todo
 
-routes.get('/todos/:id',async(req:Request,res:Response)=>{
+routes.get('/todos/:id',authenticateJWT,async(req:Request,res:Response)=>{
 
-   const id=parseInt(req.params.id);
+  
 try{
+   const id=(req.params.id as unknown) as string;
+
    const data=await getTodo(id);
-
-
-
 
    res.json(data);
 
@@ -55,17 +56,20 @@ try{
 } );
 
 
-routes.post('/todos',async(req:Request,res:Response)=>{
+//post todo
+routes.post('/todos:userId',authenticateJWT,async(req:Request,res:Response)=>{
 
 
-  const dataSent=req.body;
 
 
 
 
   try{ 
+   const userId=(req.params.userId as unknown)as number;
 
-  const addedResult=await addTodo(dataSent); 
+   const dataSent=req.body;
+ 
+  const addedResult=await addTodo(dataSent,userId); 
 
   res.json(addedResult);
 
@@ -74,28 +78,21 @@ routes.post('/todos',async(req:Request,res:Response)=>{
    throw err;
   }
    
-
-
-
-
-
-
-
 })
 
 
 
 
 
-routes.delete('/todos/:id',async(req:Request,res:Response)=>{
+routes.delete('/todos/:id/:userId',authenticateJWT,async(req:Request,res:Response)=>{
 
-
-
-   const id=parseInt(req.params.id);
+   
+   const userId=(req.params.userId as unknown )as number
+   const id=(req.params.id as unknown ) as string;
 
    try{
 
-      const deletedTodo=await deleteTodo(id);
+      const deletedTodo=await deleteTodo(id,userId);
 
       res.json(deletedTodo);
 
@@ -115,15 +112,17 @@ routes.delete('/todos/:id',async(req:Request,res:Response)=>{
 
 })
 
-routes.patch('/todos/:id',async(req:Request,res:Response)=>{
+routes.patch('/todos/:id/:userId',authenticateJWT,async(req:Request,res:Response)=>{
 
-   const id=parseInt(req.params.id);
+   const userId=(req.params.userId as unknown )as number;
+
+   const id=(req.params.id as unknown) as string;
    const dataChanges=req.body;
 
  
    try{
 
-   const updatedTodo =await updateTodo(id,dataChanges);
+   const updatedTodo =await updateTodo(id,dataChanges,userId);
    res.json(updatedTodo);
 
 

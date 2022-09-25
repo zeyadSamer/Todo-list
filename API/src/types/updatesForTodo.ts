@@ -2,7 +2,7 @@
 
 export type updateForTodo={
 
-    id?:number;
+    id?:string;
     name?:string;
     completed?:boolean;
 

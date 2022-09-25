@@ -3,7 +3,7 @@ import { deleteTodoAction } from "../actions/deleteTodo"
 import removeTodo from '../API-methods/delete.js'
 import url from '../config.js'
 
-const deleteTodo=(store,todo)=>{
+const deleteTodo=(store,todo,userData)=>{
 
   
 
@@ -12,7 +12,7 @@ const deleteTodo=(store,todo)=>{
     store.dispatch(deleteTodoAction(todo.id));
  
     try{
-        removeTodo(url,todo.id);
+        removeTodo(url,todo.id,userData);
       store.dispatch(deleteTodoAction(todo.id));
     }catch(err)
     {

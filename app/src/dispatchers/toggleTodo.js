@@ -2,7 +2,7 @@ import { toggleTodoAction } from "../actions/toggleTodo";
 import patchTodo from '../API-methods/patch';
 import url from '../config.js'
 
-const toggleTodo=(store,todo)=>{
+const toggleTodo=(store,todo,userData)=>{
 
     try{
 
@@ -17,7 +17,7 @@ const toggleTodo=(store,todo)=>{
         }
 
 
-        patchTodo(url,newTodo);
+        patchTodo(url,newTodo,userData);
 
 
 

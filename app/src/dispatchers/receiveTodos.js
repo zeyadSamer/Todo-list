@@ -4,11 +4,11 @@ import {receiveTodosAction} from '../actions/receiveTodos'
 
 
 
-const receiveTodos= async(store,url)=>{
+const receiveTodos= async(store,url,token)=>{
 
 
 
-    const savedTodos=await getAllTodos(url);
+    const savedTodos=await getAllTodos(url,token);
     store.dispatch(receiveTodosAction(savedTodos));
 
    
